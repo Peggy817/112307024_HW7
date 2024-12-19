@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Layout</title>
+  <link rel="stylesheet" href="112307024_HW7.css">
+</head>
+<body>
+ 
+  <div class="main-container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <div class="photo-panel">
+      </div>
+      <div class="text-content">
+        <div class="name-edit">
+          <h1 class="editable-name">Peggy</h1>
+          <button class="edit-btn">Edit</button>
+        </div>
+        <h2>About Me</h2>
+        <p>Hello! I'm a student passionate about technology and music. I enjoy learning new things and exploring creative solutions.</p>
+        <h3>CONTACT</h3>
+        <p>112307024@nccu.edu.tw</p>
+        <img src="nccu_icon.png" alt="NCCU Icon" class="nccu-icon">
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <!-- Education Section -->
+      <section class="education">
+        <h2>Education</h2>
+        <div class="timeline">
+          <div class="entry">
+            <span class="year">2023-now</span>
+            <span class="description">National Chengchi University, Department of Finance</span>
+          </div>
+          <div class="entry">
+            <span class="year">2020-2023</span>
+            <span class="description">National Tainan Chia-Chi Senior High School</span>
+          </div>
+          <div class="entry">
+            <span class="year">2017-2020</span>
+            <span class="description">Middle School Graduation</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Homework List Section -->
+      <section class="homework-list">
+        <h2>Homework List</h2>
+        <ul>
+          <li>HW1- <a href="https://github.com/Peggy817/Peggy.git" target="_blank">https://github.com/Peggy817/Peggy.git</a></li>
+          <li>HW2- <a href="https://github.com/Peggy817/112307024_Finance_PeiYingLi.git" target="_blank">https://github.com/Peggy817/112307024_Finance_PeiYingLi.git</a></li>
+          <li>HW3- <a href="https://github.com/Peggy817/112307024_Finance_PeiYingLi.git" target="_blank">https://github.com/Peggy817/112307024_Finance_PeiYingLi.git</a></li>
+          <li>HW4- <a href="https://github.com/Peggy817/112307024_HW4.git" target="_blank">https://github.com/Peggy817/112307024_HW4.git</a></li>
+        </ul>
+      </section>
+
+      <!-- Favorite Music Section -->
+      <section class="favorite-music">
+  <h2>Favorite Music</h2>
+  <div class="album-covers">
+    <div class="album-item">
+      <a href="https://youtu.be/kzZ6KXDM1RI?si=746YCXJEwi_b3mfs" target="_blank">
+        <img src="youtube_icon.png" alt="Music 1">
+      </a>
+      <p class="song-title">Dried Flowers</p>
+    </div>
+    <div class="album-item">
+      <a href="https://www.youtube.com/watch?v=cbqvxDTLMps" target="_blank">
+        <img src="youtube_icon.png" alt="Music 2">
+      </a>
+      <p class="song-title">ベテルギウス</p>
+    </div>
+    <div class="album-item">
+      <a href="https://www.youtube.com/watch?v=05ANErzsRc4" target="_blank">
+        <img src="youtube_icon.png" alt="Music 3">
+      </a>
+      <p class="song-title">最好的時光</p>
+    </div>
+    <div class="album-item">
+      <a href="https://www.youtube.com/watch?v=hLvWy2b857I" target="_blank">
+        <img src="youtube_icon.png" alt="Music 4">
+      </a>
+      <p class="song-title">Perfect Night</p>
+    </div>
+  </div>
+   <button class="add-music-btn">Add Music</button>
+  <p class="note">These are my favorite albums that inspire and energize me daily!</p>
+</section>
+
+    </div>
+  </div>
+   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const editButton = document.querySelector(".edit-btn");
+
+      editButton.addEventListener("click", () => {
+        const nameContainer = editButton.previousElementSibling;
+        if (editButton.textContent === "Edit") {
+          // 切換到編輯模式
+          const currentName = nameContainer.textContent;
+          const inputField = document.createElement("input");
+          inputField.type = "text";
+          inputField.value = currentName;
+          inputField.classList.add("name-input");
+          nameContainer.replaceWith(inputField);
+          editButton.textContent = "Save";
+        } else {
+          // 保存並返回顯示模式
+          const inputField = editButton.previousElementSibling;
+          const newName = inputField.value;
+          const nameDisplay = document.createElement("h1");
+          nameDisplay.textContent = newName;
+          nameDisplay.classList.add("editable-name");
+          inputField.replaceWith(nameDisplay);
+          editButton.textContent = "Edit";
+        }
+      });
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+      const addMusicButton = document.querySelector(".add-music-btn");
+      const musicSection = document.querySelector(".favorite-music");
+      const albumCovers = document.querySelector(".album-covers");
+
+      addMusicButton.addEventListener("click", () => {
+        // 檢查是否已經有表單存在，避免重複添加
+        if (document.querySelector(".music-form")) return;
+
+        // 建立表單元素
+        const form = document.createElement("div");
+        form.classList.add("music-form");
+
+        form.innerHTML = `
+          <input type="text" class="music-link" placeholder="Enter music link" />
+          <input type="text" class="music-name" placeholder="Enter music name" />
+          <button class="submit-btn">Submit</button>
+          <p class="warning" style="display: none;">Please fill in all fields!</p>
+        `;
+
+        musicSection.appendChild(form);
+
+        // 表單提交按鈕事件
+        const submitButton = form.querySelector(".submit-btn");
+        const linkInput = form.querySelector(".music-link");
+        const nameInput = form.querySelector(".music-name");
+        const warningMessage = form.querySelector(".warning");
+
+        submitButton.addEventListener("click", (event) => {
+          event.preventDefault(); // 防止表單預設提交行為
+
+          const musicLink = linkInput.value.trim();
+          const musicName = nameInput.value.trim();
+
+          if (musicLink === "" || musicName === "") {
+            warningMessage.style.display = "block"; // 顯示警告訊息
+          } else {
+            warningMessage.style.display = "none"; // 隱藏警告訊息
+
+            // 建立新音樂項目
+            const newMusicItem = document.createElement("div");
+            newMusicItem.classList.add("album-item");
+
+            newMusicItem.innerHTML = `
+              <a href="${musicLink}" target="_blank">
+                <img src="youtube_icon.png" alt="Music">
+              </a>
+              <p class="song-title">${musicName}</p>
+            `;
+
+            albumCovers.appendChild(newMusicItem); // 新增至音樂列表
+            form.remove(); // 移除表單
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
